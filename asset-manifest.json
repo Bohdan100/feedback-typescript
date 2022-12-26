@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/type-script-hw-02-components/static/css/main.17654e45.css",
+    "main.js": "/type-script-hw-02-components/static/js/main.184c722b.js",
+    "index.html": "/type-script-hw-02-components/index.html",
+    "main.17654e45.css.map": "/type-script-hw-02-components/static/css/main.17654e45.css.map",
+    "main.184c722b.js.map": "/type-script-hw-02-components/static/js/main.184c722b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.17654e45.css",
+    "static/js/main.184c722b.js"
+  ]
+}
