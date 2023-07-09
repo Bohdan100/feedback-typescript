@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import { nanoid } from "nanoid";
 
 import { IStatisticsProps } from "../../types/data";
@@ -6,38 +6,33 @@ import { IStatisticsProps } from "../../types/data";
 import {
   StatisticsList,
   StatisticsItem,
-  StatisticsText,
+  StatisticsPersentList,
 } from "./Statistics.styled";
 
-export const Statistics: React.FC<
-  IStatisticsProps
-> = ({
-  good,
-  neutral,
-  bad,
+export const Statistics: FC<IStatisticsProps> = ({
+  statistics,
   total,
-  positivePercentage,
-}): any => {
+  totalPercent,
+}) => {
+  const { typeScript, both, javaScript } = statistics;
+  const { typeScriptPersent, javaScriptPersent } = totalPercent;
   return (
     <>
       <StatisticsList>
         <StatisticsItem key={nanoid(5)}>
-          good: {good}
+          TypeScript: {typeScript}
         </StatisticsItem>
+        <StatisticsItem key={nanoid(5)}>Both variants: {both}</StatisticsItem>
         <StatisticsItem key={nanoid(5)}>
-          neutral: {neutral}
-        </StatisticsItem>
-        <StatisticsItem key={nanoid(5)}>
-          bad: {bad}
+          JavaScript: {javaScript}
         </StatisticsItem>
       </StatisticsList>
-      <StatisticsText>
-        Total: {total}
-      </StatisticsText>
-      <StatisticsText>
-        Positive feedback: {positivePercentage}%
-        {/* {positivePercentage.toFixed(0) - string - number */}
-      </StatisticsText>
+
+      <StatisticsPersentList>
+        <StatisticsItem>TypeScript: {typeScriptPersent}%</StatisticsItem>
+        <StatisticsItem>Total: {total}</StatisticsItem>
+        <StatisticsItem>JavaScript: {javaScriptPersent}%</StatisticsItem>
+      </StatisticsPersentList>
     </>
   );
 };

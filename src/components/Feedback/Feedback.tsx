@@ -1,110 +1,91 @@
-import React, { Component } from "react";
-
-import { IFeedbackProps } from "../../types/data";
+import { Component } from "react";
+import { IFeedbackProps, ITotalPersentProps } from "../../types/data";
 
 import { Section } from "../Section";
-import { FeedbackOptions } from "../FeedbackOptions";
+import { FeedbackButtons } from "../FeedbackButtons";
 import { Statistics } from "../Statistics";
 import { Notification } from "../Notification";
+import { Image } from "./Feedback.styled";
+import image from "../../image/feedback-photo.jpg";
 
-export class Feedback extends Component<
-  {},
-  IFeedbackProps
-> {
+export class Feedback extends Component<{}, IFeedbackProps> {
   state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
+    typeScript: 0,
+    both: 0,
+    javaScript: 0,
   };
 
   componentDidMount() {
-    const prevFeedback: any =
-      localStorage.getItem("feedback");
-    const prevParsedFeedback: any =
-      JSON.parse(prevFeedback);
+    const prevFeedback: string | null = localStorage.getItem("feedback");
 
-    if (prevParsedFeedback) {
+    if (typeof prevFeedback === "string") {
+      const prevParsedFeedback: IFeedbackProps = JSON.parse(prevFeedback);
       this.setState(prevParsedFeedback);
     }
   }
 
-  componentDidUpdate(_: any, prevState: any) {
-    const nextState = this.state;
+  componentDidUpdate(_: any, prevState: IFeedbackProps) {
+    const nextState: IFeedbackProps = this.state;
 
     if (nextState !== prevState) {
-      localStorage.setItem(
-        "feedback",
-        JSON.stringify(nextState)
-      );
+      localStorage.setItem("feedback", JSON.stringify(nextState));
     }
   }
 
-  handleIncrement = (name: string): void => {
-    this.setState((prevState: any) => ({
+  handleIncrement = (btnName: keyof IFeedbackProps): void => {
+    this.setState((prevState: IFeedbackProps) => ({
       ...prevState,
-      [name]: prevState[name] + 1,
+      [btnName]: prevState[btnName] + 1,
     }));
   };
 
   countTotalFeedback = (): number => {
-    const commonValues: number[] = Object.values(
-      this.state
-    );
+    const commonValues: number[] = Object.values(this.state);
     return commonValues.reduce((acc, value) => {
       return acc + value;
     }, 0);
   };
 
-  countPositiveFeedbackPercentage(): number {
-    const positiveFeedback: number =
-      this.state.good;
-    const negativeFeedback: number =
-      this.state.neutral + this.state.bad;
+  countTotalPercentage(): ITotalPersentProps {
+    const typeScriptFeedback: number = this.state.typeScript;
+    const javaScriptFeedback: number = this.state.javaScript;
 
-    const finallPersentage: number =
-      (positiveFeedback * 100) /
-      (positiveFeedback + negativeFeedback);
-
-    return (
-      Math.trunc(finallPersentage * 100) / 100
+    const typeScriptPersent: number = Math.trunc(
+      (typeScriptFeedback * 100) / (typeScriptFeedback + javaScriptFeedback)
     );
+    const javaScriptPersent: number = 100 - typeScriptPersent;
+
+    return { typeScriptPersent, javaScriptPersent };
   }
 
   render() {
-    const buttonsNames: string[] = Object.keys(
+    const buttonsNames: (keyof IFeedbackProps)[] | any = Object.keys(
       this.state
     );
-    const totalFeedback: number =
-      this.countTotalFeedback();
-    const PositiveFeedbackPercentage: number =
-      this.countPositiveFeedbackPercentage();
-    const { good, neutral, bad } = this.state;
+    const totalFeedback: number = this.countTotalFeedback();
+    const totalPercent: ITotalPersentProps = this.countTotalPercentage();
 
     return (
-      <div>
-        <Section title="Please leave feedback">
-          <FeedbackOptions
-            options={buttonsNames}
+      <>
+        <Section title="Please leave your feedback">
+          <Image image={image} />
+          <FeedbackButtons
+            buttons={buttonsNames}
             onLeaveFeedback={this.handleIncrement}
           />
         </Section>
-
         <Section title="Statistics">
           {totalFeedback > 0 ? (
             <Statistics
-              good={good}
-              neutral={neutral}
-              bad={bad}
+              statistics={this.state}
               total={totalFeedback}
-              positivePercentage={
-                PositiveFeedbackPercentage
-              }
+              totalPercent={totalPercent}
             />
           ) : (
-            <Notification message="There is no feedback..." />
+            <Notification message="There is no feedback yet... please make !" />
           )}
         </Section>
-      </div>
+      </>
     );
   }
 }

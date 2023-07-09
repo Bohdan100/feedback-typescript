@@ -1,7 +1,6 @@
+import { FC } from "react";
 import { NotificationText } from "./Notification.styled";
 
-export const Notification: React.FC<{
+export const Notification: FC<{
   message: string;
-}> = ({ message }): any => (
-  <NotificationText>{message}</NotificationText>
-);
+}> = ({ message }) => <NotificationText>{message}</NotificationText>;

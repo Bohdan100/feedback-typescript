@@ -5,9 +5,10 @@ declare module "styled-components" {
     colors: {
       indigo: string;
       indigoAccent: string;
-      red: string;
-      redAccent: string;
-      green: string;
+      blue: string;
+      lightblue: string;
+      yellow: string;
+      darkgreen: string;
       black: string;
       white: string;
     };
@@ -20,11 +21,12 @@ declare module "styled-components" {
     };
 
     fontSizes: {
-      xs: string;
       s: string;
+      xs: string;
       m: string;
       l: string;
       xl: string;
+      xxl: string;
     };
 
     fontWeights: {

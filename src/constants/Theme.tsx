@@ -4,11 +4,12 @@ const theme: DefaultTheme = {
   colors: {
     indigo: "#3f51b5",
     indigoAccent: "#303f9f",
-    red: "#f44336",
-    redAccent: "#d32f2f",
-    green: "#4caf50",
+    lightblue: "#61dafb ",
+    darkgreen: "#112931",
+    blue: "#007acc",
+    yellow: "#f7e018",
     black: "#2a2a2a",
-    white: "#fff",
+    white: "#ffffff",
   },
 
   space: [0, 2, 4, 8, 16, 32, 64, 128, 256],
@@ -19,11 +20,12 @@ const theme: DefaultTheme = {
   },
 
   fontSizes: {
-    xs: "14px",
-    s: "20px",
-    m: "24px",
+    s: "14px",
+    xs: "18px",
+    m: "22px",
     l: "28px",
-    xl: "32px",
+    xl: "34px",
+    xxl: "40px",
   },
 
   fontWeights: {
@@ -44,7 +46,7 @@ const theme: DefaultTheme = {
 
   radius: {
     none: "0",
-    normal: "4px",
+    normal: "12px",
     round: "50%",
   },
 };

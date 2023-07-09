@@ -1,11 +1,16 @@
 export interface IFeedbackProps {
-  good: number;
-  neutral: number;
-  bad: number;
+  typeScript: number;
+  both: number;
+  javaScript: number;
 }
 
-export interface IStatisticsProps
-  extends IFeedbackProps {
+export interface ITotalPersentProps {
+  typeScriptPersent: number;
+  javaScriptPersent: number;
+}
+
+export interface IStatisticsProps {
+  statistics: IFeedbackProps;
+  totalPercent: ITotalPersentProps;
   total: number;
-  positivePercentage: number;
 }
