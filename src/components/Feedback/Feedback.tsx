@@ -50,10 +50,17 @@ export class Feedback extends Component<{}, IFeedbackProps> {
     const typeScriptFeedback: number = this.state.typeScript;
     const javaScriptFeedback: number = this.state.javaScript;
 
-    const typeScriptPersent: number = Math.trunc(
-      (typeScriptFeedback * 100) / (typeScriptFeedback + javaScriptFeedback)
-    );
-    const javaScriptPersent: number = 100 - typeScriptPersent;
+    let typeScriptPersent: number = 0;
+    let javaScriptPersent: number = 0;
+
+    if (typeScriptFeedback !== 0) {
+      typeScriptPersent = Math.trunc(
+        (typeScriptFeedback * 100) / (typeScriptFeedback + javaScriptFeedback)
+      );
+    }
+    if (javaScriptFeedback !== 0) {
+      javaScriptPersent = 100 - typeScriptPersent;
+    }
 
     return { typeScriptPersent, javaScriptPersent };
   }
